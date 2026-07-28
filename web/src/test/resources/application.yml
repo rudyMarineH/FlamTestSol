@@ -7,7 +7,3 @@ web:
 spring:
   application:
     name: taf
-
-allure:
-  results:
-    directory: target/allure-results
