@@ -17,6 +17,12 @@ runs:
       shell: bash
       run: mvn -B allure:report -pl ${{ inputs.module }} --no-transfer-progress
 
+    - uses: allure-framework/allure-action@v0
+      with:
+        report-directory: ${{ inputs.module }}/target/site/allure-maven-plugin
+        github-token: ${{ github.token }}
+        remote-href: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ inputs.module }}/
+
     - uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ github.token }}
