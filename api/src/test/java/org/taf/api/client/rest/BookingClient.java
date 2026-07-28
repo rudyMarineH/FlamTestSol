@@ -15,7 +15,11 @@ public class BookingClient extends BaseApiClient {
 
     public BookingClient(String baseUrl, String username, String password) {
         this.baseUrl = baseUrl;
-        this.token = rawSpec(baseUrl)
+        this.token = authenticate(baseUrl, username, password);
+    }
+
+    private String authenticate(String baseUrl, String username, String password) {
+        return rawSpec(baseUrl)
                 .body(Map.of("username", username, "password", password))
             .when()
                 .post("/auth")
