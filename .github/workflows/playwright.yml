@@ -45,7 +45,8 @@ jobs:
         run: mvn -B install -DskipTests --no-transfer-progress
 
       - name: Install browsers
-        run: mvn -B exec:java -pl web -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" --no-transfer-progress
+        working-directory: web
+        run: mvn -B exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" -Dexec.classpathScope=test --no-transfer-progress
 
       - name: Run tests
         run: mvn -B test --no-transfer-progress
