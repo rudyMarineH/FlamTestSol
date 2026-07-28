@@ -11,12 +11,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/upload-artifact@v6
-      with:
-        name: allure-results-${{ inputs.module }}
-        path: ${{ inputs.module }}/target/allure-results
-        retention-days: 7
-
     - name: Install Allure CLI
       shell: bash
       run: |
