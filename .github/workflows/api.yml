@@ -1,8 +1,8 @@
-name: API Tests
+name: Api Tests
 
 on:
   workflow_dispatch:
-pull_request:
+  pull_request:
     branches: [ develop, main, master ]
 
 jobs:
@@ -50,8 +50,6 @@ jobs:
       cancel-in-progress: false
     permissions:
       contents: write
-      pull-requests: write
-      checks: write
     steps:
       - uses: actions/checkout@v6
       - uses: actions/download-artifact@v4
