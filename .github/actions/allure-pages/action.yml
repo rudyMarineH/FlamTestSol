@@ -15,7 +15,9 @@ runs:
 
     - name: Generate Allure report
       shell: bash
-      run: mvn -B allure:report -pl ${{ inputs.module }} --no-transfer-progress
+      run: |
+        mvn -B allure:report -pl ${{ inputs.module }} --no-transfer-progress
+        echo '<meta http-equiv="refresh" content="0; url=allure-maven.html">' > ${{ inputs.module }}/target/site/allure-maven-plugin/index.html
 
     - uses: allure-framework/allure-action@v0
       with:
