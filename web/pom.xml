@@ -35,4 +35,16 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <configuration>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
