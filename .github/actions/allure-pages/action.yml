@@ -22,13 +22,6 @@ runs:
       shell: bash
       run: allure generate ${{ inputs.module }}/target/allure-results -o ${{ inputs.module }}/target/allure-report --clean
 
-    - uses: allure-framework/allure-action@v0
-      continue-on-error: true
-      with:
-        report-directory: ${{ inputs.module }}/target/allure-report
-        github-token: ${{ github.token }}
-        remote-href: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ inputs.module }}/
-
     - uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ github.token }}
