@@ -17,8 +17,8 @@ public class GraphQlClient extends BaseApiClient {
         this.authToken = authToken;
     }
 
-    @Step("POST GraphQL query")
-    public Response executeQuery(String query, Map<String, Object> variables) {
+    @Step("POST GraphQL query with variables")
+    public Response executeQueryWithParams(String query, Map<String, Object> variables) {
         return spec()
                 .body(Map.of("query", query, "variables", variables))
             .when()
@@ -27,8 +27,8 @@ public class GraphQlClient extends BaseApiClient {
                 .extract().response();
     }
 
-    @Step("POST GraphQL raw query (no status assertion)")
-    public Response executeRawQuery(String query) {
+    @Step("POST GraphQL query")
+    public Response executeQuery(String query) {
         return spec()
                 .body(Map.of("query", query, "variables", Map.of()))
             .when()

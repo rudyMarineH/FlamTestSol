@@ -26,7 +26,7 @@ class GraphQlNegativeTest extends BaseGraphQlTest {
 
     @Test @Tag(Tags.NEGATIVE) @Tag(Tags.SMOKE)
     void malformed_query_returns_errors() {
-        Response r = graphQlSteps.rawQuery("{ invalid query syntax !@# }");
+        Response r = graphQlSteps.executeQuery("{ invalid query syntax !@# }");
 
         r.then()
             .statusCode(anyOf(equalTo(200), equalTo(400)))
@@ -45,7 +45,7 @@ class GraphQlNegativeTest extends BaseGraphQlTest {
                   }
                 }
                 """;
-        Response r = graphQlSteps.rawQuery(query);
+        Response r = graphQlSteps.executeQuery(query);
 
         r.then()
             .statusCode(anyOf(equalTo(200), equalTo(400)))

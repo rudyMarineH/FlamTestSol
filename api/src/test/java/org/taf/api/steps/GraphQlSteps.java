@@ -24,7 +24,7 @@ public class GraphQlSteps {
 
     @Step("Execute GraphQL query with retry")
     public Response queryWithRetry(String query, Map<String, Object> variables) {
-        Response r = retry(() -> client.executeQuery(query, variables));
+        Response r = retry(() -> client.executeQueryWithParams(query, variables));
         assertThat(r.statusCode()).isEqualTo(200);
         return r;
     }
@@ -33,14 +33,14 @@ public class GraphQlSteps {
         return queryWithRetry(query, Map.of());
     }
 
-    @Step("Execute raw GraphQL query (no status assertion)")
-    public Response rawQuery(String query) {
-        return client.executeRawQuery(query);
+    @Step("Execute GraphQL query")
+    public Response executeQuery(String query) {
+        return client.executeQuery(query);
     }
 
-    @Step("Execute raw GraphQL query with variables (no status assertion)")
-    public Response rawQuery(String query, Map<String, Object> variables) {
-        return client.executeQuery(query, variables);
+    @Step("Execute GraphQL query with variables")
+    public Response executeQueryWithParams(String query, Map<String, Object> variables) {
+        return client.executeQueryWithParams(query, variables);
     }
 
     @Step("Fetch first movie ID from list")
