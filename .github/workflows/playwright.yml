@@ -37,7 +37,7 @@ jobs:
         working-directory: web
         run: mvn -B exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" -Dexec.classpathScope=test --no-transfer-progress
       - name: Run tests
-        run: mvn -B test --no-transfer-progress
+        run: mvn -B test -pl web --no-transfer-progress
       - uses: actions/upload-artifact@v6
         if: always()
         with:
