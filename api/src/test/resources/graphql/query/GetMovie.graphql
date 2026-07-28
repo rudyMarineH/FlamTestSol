@@ -1,0 +1,7 @@
+query GetMovie($id: ID!) {
+  movie(where: { id: $id }) {
+    id
+    title
+    slug
+  }
+}

@@ -1,0 +1,15 @@
+fragment MovieMeta on Movie {
+  slug
+  imdbId
+}
+
+query GetMovieDetail($id: ID!) {
+  movie(where: { id: $id }) {
+    id
+    title
+    ...MovieMeta
+    publishedBy {
+      name
+    }
+  }
+}
