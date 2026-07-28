@@ -5,7 +5,7 @@ import com.microsoft.playwright.junit.OptionsFactory;
 
 public class BrowserOptions implements OptionsFactory {
 
-    static boolean headless = true;
+    static boolean headless = System.getenv("CI") != null || "true".equals(System.getProperty("headless"));
 
     @Override
     public Options getOptions() {
