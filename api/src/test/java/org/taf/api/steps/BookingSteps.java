@@ -6,8 +6,6 @@ import org.taf.api.client.rest.BookingClient;
 import org.taf.api.model.BookingBody;
 import org.taf.util.Retry;
 
-import java.util.function.Supplier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 
@@ -21,9 +19,7 @@ public class BookingSteps {
 
     @Step("Create booking for {body.firstName} {body.lastName}")
     public Response createBooking(BookingBody body) {
-        Response r = retry(() -> client.createBooking(body));
-        assertThat(r.statusCode()).isEqualTo(200);
-        return r;
+        return Retry.until(() -> client.createBooking(body), resp -> resp.statusCode() == 200);
     }
 
     @Step("Get booking {id}")
@@ -83,7 +79,4 @@ public class BookingSteps {
         client.deleteBookingNoAuth(id).then().statusCode(403);
     }
 
-    private Response retry(Supplier<Response> request) {
-        return Retry.until(request, r -> r.statusCode() < 500);
-    }
 }

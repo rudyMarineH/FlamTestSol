@@ -10,7 +10,11 @@ import org.taf.tags.Tags;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.nullValue;
 
 @Story("GraphQL negative")
 class GraphQlNegativeTest extends BaseGraphQlTest {
@@ -29,7 +33,7 @@ class GraphQlNegativeTest extends BaseGraphQlTest {
         Response r = graphQlSteps.executeQuery("{ invalid query syntax !@# }");
 
         r.then()
-            .statusCode(anyOf(equalTo(200), equalTo(400)))
+            .statusCode(400)
             .body("errors", not(empty()))
             .body("errors[0].message", not(emptyOrNullString()));
         assertThat(r.jsonPath().getMap("data")).isNull();
@@ -48,7 +52,7 @@ class GraphQlNegativeTest extends BaseGraphQlTest {
         Response r = graphQlSteps.executeQuery(query);
 
         r.then()
-            .statusCode(anyOf(equalTo(200), equalTo(400)))
+            .statusCode(400)
             .body("errors", not(empty()))
             .body("errors[0].message", containsString("fieldThatDoesNotExist"));
         assertThat(r.jsonPath().getMap("data")).isNull();

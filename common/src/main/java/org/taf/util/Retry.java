@@ -1,5 +1,6 @@
 package org.taf.util;
 
+import lombok.experimental.UtilityClass;
 import org.awaitility.core.ConditionTimeoutException;
 
 import java.time.Duration;
@@ -9,11 +10,17 @@ import java.util.function.Supplier;
 
 import static org.awaitility.Awaitility.await;
 
-public final class Retry {
+@UtilityClass
+public class Retry {
 
-    private Retry() {}
+    private static boolean enabled = true;
+
+    static void configure(boolean enabled) {
+        Retry.enabled = enabled;
+    }
 
     public static <T> T until(Supplier<T> action, Predicate<T> condition) {
+        if (!enabled) return action.get();
         AtomicReference<T> ref = new AtomicReference<>();
         try {
             await()

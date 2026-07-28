@@ -6,6 +6,9 @@ api:
   graphql:
     base-url: https://us-east-1-shared-usea1-02.cdn.hygraph.com/content/clpvcopq3aavs01usft1idkgj/master
 
+retry:
+  enabled: true
+
 spring:
   application:
     name: taf

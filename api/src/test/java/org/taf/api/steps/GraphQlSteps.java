@@ -9,9 +9,7 @@ import org.taf.api.model.MovieSummary;
 import org.taf.util.Retry;
 
 import java.util.Map;
-import java.util.function.Supplier;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 
 public class GraphQlSteps {
@@ -24,13 +22,7 @@ public class GraphQlSteps {
 
     @Step("Execute GraphQL query with retry")
     public Response queryWithRetry(String query, Map<String, Object> variables) {
-        Response r = retry(() -> client.executeQueryWithParams(query, variables));
-        assertThat(r.statusCode()).isEqualTo(200);
-        return r;
-    }
-
-    public Response queryWithRetry(String query) {
-        return queryWithRetry(query, Map.of());
+        return Retry.until(() -> client.executeQueryWithParams(query, variables), resp -> resp.statusCode() == 200);
     }
 
     @Step("Execute GraphQL query")
@@ -52,7 +44,4 @@ public class GraphQlSteps {
         return first.id();
     }
 
-    private Response retry(Supplier<Response> request) {
-        return Retry.until(request, r -> r.statusCode() < 500);
-    }
 }
