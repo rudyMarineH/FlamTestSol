@@ -1,0 +1,13 @@
+web:
+  base-url: https://demoqa.com/automation-practice-form
+#  just for architect example
+  REDACTED-url: https://demoqa.com/login
+  headless: true
+
+spring:
+  application:
+    name: taf
+
+allure:
+  results:
+    directory: target/allure-results

@@ -1,0 +1,6 @@
+package org.taf.web.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "web")
+public record WebUrls(String baseUrl, String REDACTEDUrl, boolean headless) {}
