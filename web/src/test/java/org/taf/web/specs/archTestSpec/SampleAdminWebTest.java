@@ -9,13 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SampleAdminWebTest extends BaseAdminTest {
 
     @Test
-    void navigates_to_REDACTED_url(Page page) {
+    void navigates_to_dummy_url(Page page) {
         assertThat(page.url()).contains("login");
     }
 
     @Test
-    void REDACTED_url_configured(Page page) {
-        System.out.println(webUrls.REDACTEDUrl());
+    void dummy_url_configured(Page page) {
+        System.out.println(webUrls.dummyUrl());
         assertThat(page.url()).contains("login");
     }
 }
