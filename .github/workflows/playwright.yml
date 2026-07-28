@@ -12,7 +12,7 @@ on:
           - chromium
           - firefox
   pull_request:
-    branches: [ develop, main, master ]
+    branches: [ develop, main ]
 
 jobs:
   build:
