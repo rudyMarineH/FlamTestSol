@@ -1,2 +1,3 @@
+#dummy file to show ability use different spring profiles
 api:
   base-url: https://prod.api.example.com
