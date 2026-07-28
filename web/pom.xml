@@ -43,6 +43,7 @@
                 <artifactId>allure-maven</artifactId>
                 <configuration>
                     <installDirectory>${project.build.directory}</installDirectory>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
         </plugins>
