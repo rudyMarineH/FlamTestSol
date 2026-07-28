@@ -23,8 +23,7 @@ public abstract class BaseBookingTest extends BaseApiTest {
 
     @BeforeAll
     void setUpBooking() {
-        String token = new BookingClient(bookerBaseUrl, null).acquireToken(username, password);
-        bookingSteps = new BookingSteps(new BookingClient(bookerBaseUrl, token));
+        bookingSteps = new BookingSteps(new BookingClient(bookerBaseUrl, username, password));
     }
 
     protected BookingBody defaultBody() {

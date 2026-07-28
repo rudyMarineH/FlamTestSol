@@ -13,19 +13,23 @@ public class BookingClient extends BaseApiClient {
     private final String baseUrl;
     private final String token;
 
-    public BookingClient(String baseUrl, String token) {
+    public BookingClient(String baseUrl, String username, String password) {
         this.baseUrl = baseUrl;
-        this.token = token;
-    }
-
-    public String acquireToken(String username, String password) {
-        return rawSpec(baseUrl)
+        this.token = rawSpec(baseUrl)
                 .body(Map.of("username", username, "password", password))
             .when()
                 .post("/auth")
             .then()
                 .statusCode(200)
                 .extract().jsonPath().getString("token");
+    }
+
+    private RequestSpecification spec() {
+        return baseSpec(baseUrl);
+    }
+
+    private RequestSpecification specWithAuth() {
+        return spec().cookie("token", token);
     }
 
     @Step("POST /booking — {body.firstName} {body.lastName}")
@@ -106,11 +110,4 @@ public class BookingClient extends BaseApiClient {
                 .extract().response();
     }
 
-    private RequestSpecification spec() {
-        return baseSpec(baseUrl);
-    }
-
-    private RequestSpecification specWithAuth() {
-        return spec().cookie("token", token);
-    }
 }
