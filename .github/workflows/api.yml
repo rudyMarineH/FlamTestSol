@@ -24,6 +24,9 @@ jobs:
     needs: build
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages-deploy
+      cancel-in-progress: false
     permissions:
       contents: write
       pull-requests: write
