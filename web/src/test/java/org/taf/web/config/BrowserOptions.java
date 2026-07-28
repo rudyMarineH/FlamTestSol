@@ -5,12 +5,10 @@ import com.microsoft.playwright.junit.OptionsFactory;
 
 public class BrowserOptions implements OptionsFactory {
 
-    static boolean headless = true;
-
-    @Override
-    public Options getOptions() {
-        return new Options()
-                .setBrowserName(System.getProperty("browser", "chromium"))
-                .setHeadless(headless);
-    }
+  @Override
+  public Options getOptions() {
+    return new Options()
+        .setBrowserName(System.getProperty("browser", "chromium"))
+        .setHeadless(Boolean.parseBoolean(System.getProperty("headless", "true")));
+  }
 }
