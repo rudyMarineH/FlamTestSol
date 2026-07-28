@@ -1,8 +1,8 @@
 api:
   restful-booker:
     base-url: https://restful-booker.herokuapp.com
-    username: ${API_USERNAME}
-    password: ${API_PASSWORD}
+    username: ${API_USERNAME:admin}
+    password: ${API_PASSWORD:password123}
   graphql:
     base-url: https://us-east-1-shared-usea1-02.cdn.hygraph.com/content/clpvcopq3aavs01usft1idkgj/master
 
@@ -12,3 +12,7 @@ retry:
 spring:
   application:
     name: taf
+
+allure:
+  results:
+    directory: target/allure-results
