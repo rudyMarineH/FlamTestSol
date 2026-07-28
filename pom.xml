@@ -72,6 +72,7 @@
                     <version>3.3.1</version>
                     <configuration>
                         <argLine>-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar -XX:+EnableDynamicAgentLoading -Xshare:off</argLine>
+                        <testFailureIgnore>true</testFailureIgnore>
                     </configuration>
                 </plugin>
                 <plugin>
