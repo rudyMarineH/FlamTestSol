@@ -1,8 +1,8 @@
 api:
   restful-booker:
     base-url: https://restful-booker.herokuapp.com
-    username: REDACTED
-    password: REDACTED
+    username: ${API_USERNAME}
+    password: ${API_PASSWORD}
   graphql:
     base-url: https://us-east-1-shared-usea1-02.cdn.hygraph.com/content/clpvcopq3aavs01usft1idkgj/master
 

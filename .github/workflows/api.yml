@@ -21,6 +21,9 @@ jobs:
           cache: maven
 
       - name: Run API tests
+        env:
+          API_USERNAME: ${{ secrets.API_USERNAME }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
         run: mvn -B test -pl api --also-make --no-transfer-progress
 
       - name: Upload Allure results
