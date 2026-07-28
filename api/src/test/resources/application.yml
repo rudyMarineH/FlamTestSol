@@ -1,0 +1,10 @@
+api:
+  base-url: https://api.example.com
+
+spring:
+  application:
+    name: taf
+
+allure:
+  results:
+    directory: target/allure-results
