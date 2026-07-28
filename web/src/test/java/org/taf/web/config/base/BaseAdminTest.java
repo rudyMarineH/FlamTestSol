@@ -4,6 +4,6 @@ public abstract class BaseAdminTest extends BaseWebTest {
 
   @Override
   protected String startUrl() {
-    return webUrls.REDACTEDUrl();
+    return webUrls.dummyUrl();
   }
 }
