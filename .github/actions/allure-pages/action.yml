@@ -1,0 +1,27 @@
+name: Publish Allure to GitHub Pages
+inputs:
+  allure_results:
+    required: true
+  destination_dir:
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: gh-pages
+        path: gh-pages
+      continue-on-error: true
+
+    - uses: simple-elf/allure-report-action@v1.7
+      with:
+        gh_pages: gh-pages
+        allure_history: allure-history
+        allure_results: ${{ inputs.allure_results }}
+
+    - uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ github.token }}
+        publish_branch: gh-pages
+        publish_dir: allure-history
+        destination_dir: ${{ inputs.destination_dir }}

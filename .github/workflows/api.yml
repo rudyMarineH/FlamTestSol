@@ -24,6 +24,8 @@ jobs:
     needs: build
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -40,10 +42,9 @@ jobs:
           API_PASSWORD: ${{ secrets.API_PASSWORD }}
         run: mvn -B test -pl api --also-make --no-transfer-progress
 
-      - name: Upload Allure results
+      - name: Publish Allure report
+        uses: ./.github/actions/allure-pages
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: api/target/allure-results
-          retention-days: 7
+          allure_results: api/target/allure-results
+          destination_dir: api
