@@ -1,0 +1,41 @@
+name: Publish Allure to GitHub Pages
+description: Generate Allure HTML report via CLI and publish to GitHub Pages
+inputs:
+  module:
+    required: true
+    description: Maven module name (e.g. api, web)
+  allure-version:
+    required: false
+    default: '2.28.0'
+    description: Allure CLI version — keep in sync with allure.version in pom.xml
+runs:
+  using: composite
+  steps:
+    - name: Install Allure CLI
+      shell: bash
+      run: |
+        wget -qO /tmp/allure.tgz https://github.com/allure-framework/allure2/releases/download/${{ inputs.allure-version }}/allure-${{ inputs.allure-version }}.tgz
+        tar -xzf /tmp/allure.tgz -C /opt/
+        sudo ln -sf /opt/allure-${{ inputs.allure-version }}/bin/allure /usr/local/bin/allure
+
+    - name: Generate Allure report
+      shell: bash
+      run: allure generate ${{ inputs.module }}/target/allure-results -o ${{ inputs.module }}/target/allure-report --clean
+
+    - uses: allure-framework/allure-action@v0
+      continue-on-error: true
+      with:
+        report-directory: ${{ inputs.module }}/target/allure-report
+        github-token: ${{ github.token }}
+        remote-href: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ inputs.module }}/
+
+    - uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ github.token }}
+        publish_branch: gh-pages
+        publish_dir: ${{ inputs.module }}/target/allure-report
+        destination_dir: ${{ inputs.module }}
+
+    - name: Post report link to job summary
+      shell: bash
+      run: echo "### [Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ inputs.module }}/)" >> $GITHUB_STEP_SUMMARY
