@@ -8,6 +8,7 @@ A multi-module Java test automation framework covering REST API, GraphQL, and br
 
 ## Prerequisites
 
+- Maven multimodule project to have clear TAF structure 
 - Java 24+
 - Maven 3.6+
 - Spring Boot 4.1.0
@@ -37,14 +38,15 @@ or in yml
 mvn clean test -pl api && mvn allure:serve -pl api
 ```
 
+
+**Install Playwright browsers (first-time setup only)**
+```bash
+mvn -pl web exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" -Dexec.classpathScope=test
+```
+
 **Run UI tests and open Allure report**
 ```bash
 mvn clean test -pl web && mvn allure:serve -pl web
-```
-
-**Install Playwright browsers (first-time setup only — not part of `mvn test`)**
-```bash
-mvn -pl web exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" -Dexec.classpathScope=test
 ```
 
 **Run UI tests with a specific browser**
