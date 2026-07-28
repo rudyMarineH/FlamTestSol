@@ -41,6 +41,9 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
+                <configuration>
+                    <installDirectory>${project.build.directory}</installDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
