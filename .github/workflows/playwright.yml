@@ -49,5 +49,4 @@ jobs:
         uses: ./.github/actions/allure-pages
         if: always()
         with:
-          allure_results: web/target/allure-results
-          destination_dir: web
+          module: web
