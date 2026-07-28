@@ -2,6 +2,15 @@ name: Playwright UI Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      browser:
+        description: Browser
+        required: false
+        default: chromium
+        type: choice
+        options:
+          - chromium
+          - firefox
   pull_request:
     branches: [ develop, main, master ]
 
@@ -35,7 +44,7 @@ jobs:
         working-directory: web
         run: mvn -B exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps" -Dexec.classpathScope=test --no-transfer-progress
       - name: Run tests
-        run: mvn -B test -pl web --no-transfer-progress
+        run: mvn -B test -pl web --no-transfer-progress -Dbrowser=${{ inputs.browser || 'chromium' }}
       - uses: actions/upload-artifact@v6
         if: always()
         with:
